@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/workloaddb
+    username: ${PG_USER}
+    password: ${PG_PASSWD}
+
+  jpa:
+    properties:
+      hibernate: org.hibernate.dialect.PostgreSQL82Dialect
+      jdbc:
+        lob:
+          non_contextual_creation: true
+
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+
+auth0:
+  audience: ${AUDIENCE}
+  issuer: ${ISSUER}
+
+logging:
+  level:
+    ROOT: TRACE
