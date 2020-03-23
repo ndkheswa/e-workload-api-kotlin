@@ -7,6 +7,7 @@ import com.learncoding.eworkloadapi.service.ClientService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -14,9 +15,10 @@ import org.springframework.web.bind.annotation.*
 import java.net.URI
 import java.util.*
 import javax.validation.Valid
+import kotlin.collections.ArrayList
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/api/v1")
 class ClientController {
 
     private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
@@ -27,10 +29,10 @@ class ClientController {
 
     @GetMapping(value = ["/clients"], produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
     fun findAll(
-        @RequestParam(value = "page") pageNumber: Int,
-        @RequestParam(required = false) lastName: String
-    ) : ResponseEntity<List<Client>> {
-        return ResponseEntity.of(clientService?.findAll(pageNumber, rowsPerPage) as Optional<List<Client>>)
+        @RequestParam(value = "page", defaultValue = "1") pageNumber: Int,
+        @RequestParam(required = false) lastName: String?
+    ) : ResponseEntity<Page<Client>> {
+        return ResponseEntity.ok(clientService!!.findAll(pageNumber, rowsPerPage))
     }
 
     @PostMapping("/clients")

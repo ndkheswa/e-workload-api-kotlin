@@ -29,6 +29,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("org.liquibase:liquibase-core")
 	implementation("com.auth0", "auth0-spring-security-api", "1.3.0")
 	implementation("com.auth0", "auth0", "1.15.0")
 	compileOnly("org.projectlombok:lombok")
