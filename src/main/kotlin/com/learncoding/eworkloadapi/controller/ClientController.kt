@@ -37,8 +37,9 @@ class ClientController {
     @PostMapping("/clients")
     fun addClient(@Valid @RequestBody client: Client) : ResponseEntity<Client> {
         try {
+            client.setAge(client.birthdate)
             var newClient: Client? = clientService?.save(client)
-            return ResponseEntity.created(URI("/api/v1/clients ${newClient?.id}")).body(client)
+            return ResponseEntity.created(URI("/api/v1/clients/${newClient?.id}")).body(client)
         } catch (ex: ResourceAlreadyExistsException) {
             logger.error(ex.message)
             return ResponseEntity.status(HttpStatus.CONFLICT).build()
@@ -62,7 +63,7 @@ class ClientController {
         }
     }
 
-    @DeleteMapping("/path/client/{id}")
+    @DeleteMapping(path = arrayOf("/clients/{id}"))
     fun deleteClientById(@PathVariable id: Long) : ResponseEntity<Long> {
         try {
             clientService!!.deleteById(id)

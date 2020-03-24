@@ -61,7 +61,7 @@ class ClientService(@Autowired val clientRepository: ClientRepository) {
 
     fun deleteById(id: Long) {
         if (!existById(id)) {
-            throw ResourceNotFoundException("Could find client with id: $id")
+            throw ResourceNotFoundException("Could not find client with id: $id")
         } else {
             clientRepository.deleteById(id)
         }

@@ -12,8 +12,7 @@ create table client (
                         phone varchar(20) not null,
                         occupation varchar(100) not null,
                         gender varchar(100) not null,
-                        maritalStatus varchar(20) not null,
-                        age int not null,
                         birthDate timestamp without time zone not null,
+                        age int not null,
                         primary key (id)
 );
