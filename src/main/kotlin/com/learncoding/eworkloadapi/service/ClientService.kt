@@ -45,4 +45,27 @@ class ClientService(@Autowired val clientRepository: ClientRepository) {
             throw  e
         }
     }
+
+    fun update(client: Client) {
+        if (!StringUtils.isEmpty(client.lastName)) {
+            if (!existById(client.id)) {
+                throw ResourceNotFoundException("Cannot find client with id ${client.id}!")
+            }
+            clientRepository.save(client)
+        } else {
+            var e: BadResourceException = BadResourceException("Failed to update client!")
+            e.addErrorMessage("Client is null or empty.")
+            throw e
+        }
+    }
+
+    fun deleteById(id: Long) {
+        if (!existById(id)) {
+            throw ResourceNotFoundException("Could find client with id: $id")
+        } else {
+            clientRepository.deleteById(id)
+        }
+    }
+
+    fun count() : Long = clientRepository.count()
 }

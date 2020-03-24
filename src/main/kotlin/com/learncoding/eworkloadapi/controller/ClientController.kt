@@ -2,6 +2,7 @@ package com.learncoding.eworkloadapi.controller
 
 import com.learncoding.eworkloadapi.exception.BadResourceException
 import com.learncoding.eworkloadapi.exception.ResourceAlreadyExistsException
+import com.learncoding.eworkloadapi.exception.ResourceNotFoundException
 import com.learncoding.eworkloadapi.model.Client
 import com.learncoding.eworkloadapi.service.ClientService
 import org.slf4j.Logger
@@ -13,9 +14,7 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
-import java.util.*
 import javax.validation.Valid
-import kotlin.collections.ArrayList
 
 @RestController
 @RequestMapping("/api/v1")
@@ -46,6 +45,31 @@ class ClientController {
         } catch (ex: BadResourceException) {
             logger.error(ex.message)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
+        }
+    }
+
+    @PutMapping(value = ["/clients/{id}"])
+    fun updateClient(@Valid @RequestBody client: Client, @PathVariable id: Long) : ResponseEntity<Client> {
+        try {
+            clientService!!.update(client)
+            return ResponseEntity.ok().build()
+        } catch (e: ResourceNotFoundException) {
+            logger.error(e.message)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+        } catch (e: BadResourceException) {
+            logger.error(e.message)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
+        }
+    }
+
+    @DeleteMapping("/path/client/{id}")
+    fun deleteClientById(@PathVariable id: Long) : ResponseEntity<Long> {
+        try {
+            clientService!!.deleteById(id)
+            return ResponseEntity.ok().build()
+        } catch (e: ResourceNotFoundException) {
+            logger.error(e.message)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build()
         }
     }
 
