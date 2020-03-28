@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*
 import java.net.URI
 import javax.validation.Valid
 
+@CrossOrigin(origins = arrayOf("*"), allowedHeaders = arrayOf("*"))
 @RestController
 @RequestMapping("/api/v1")
 class ClientController {
@@ -37,7 +38,7 @@ class ClientController {
     @PostMapping("/clients")
     fun addClient(@Valid @RequestBody client: Client) : ResponseEntity<Client> {
         try {
-            client.setAge(client.birthdate)
+            client.setAge(client.birthDate)
             var newClient: Client? = clientService?.save(client)
             return ResponseEntity.created(URI("/api/v1/clients/${newClient?.id}")).body(client)
         } catch (ex: ResourceAlreadyExistsException) {

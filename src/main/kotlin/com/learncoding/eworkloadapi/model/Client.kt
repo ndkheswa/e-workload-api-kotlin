@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat
 import com.sun.istack.NotNull
 import java.time.LocalDate
 import java.time.Period
-import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -18,8 +17,6 @@ data class Client(
 
     @NotNull var lastName: String,
 
-    var email: String,
-
     @NotNull var phone: String,
 
     @NotNull var occupation: Occupation,
@@ -28,7 +25,9 @@ data class Client(
 
     @NotNull
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-    var birthdate: LocalDate,
+    var birthDate: LocalDate,
+
+    var email: String,
 
     @NotNull var age: Int) {
 
@@ -46,7 +45,4 @@ data class Client(
     fun setAge(birthDate: LocalDate) : Unit {
         this.age = calculateAge(birthDate)
     }
-
-
-
 }

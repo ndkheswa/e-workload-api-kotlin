@@ -1,6 +1,6 @@
 package com.learncoding.eworkloadapi.service
 
-import com.learncoding.eworkloadapi.ClientRepository
+import com.learncoding.eworkloadapi.repository.ClientRepository
 import com.learncoding.eworkloadapi.exception.BadResourceException
 import com.learncoding.eworkloadapi.exception.ResourceAlreadyExistsException
 import com.learncoding.eworkloadapi.exception.ResourceNotFoundException
